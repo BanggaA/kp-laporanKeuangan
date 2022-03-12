@@ -18,7 +18,7 @@ class Rekap extends CI_Controller {
 		$data['nav'] = 'Rekap';
 		$this->load->view('templates/head',$data);
 		$this->load->view('templates/nav',$data);
-
+		$this->load->view('dashboard/rekap');
 		$this->load->view('templates/foot');
 	}
 }

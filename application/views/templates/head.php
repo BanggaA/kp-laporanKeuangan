@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="<?= base_url("assets/css/slicknav.min.css")?>">
     <!-- amchart css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <!-- Start datatable css -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <!-- others css -->
     <link rel="stylesheet" href="<?= base_url("assets/css/typography.css")?>">
     <link rel="stylesheet" href="<?= base_url("assets/css/default-css.css")?>">

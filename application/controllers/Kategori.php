@@ -18,7 +18,7 @@ class Kategori extends CI_Controller {
 		$data['nav'] = 'Kategori';
 		$this->load->view('templates/head',$data);
 		$this->load->view('templates/nav',$data);
-
+		$this->load->view('dashboard/kategori');
 		$this->load->view('templates/foot');
 	}
 }
