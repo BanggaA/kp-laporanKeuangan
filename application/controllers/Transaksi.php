@@ -18,7 +18,7 @@ class Transaksi extends CI_Controller {
 		$data['nav'] = 'Transaksi';
 		$this->load->view('templates/head',$data);
 		$this->load->view('templates/nav',$data);
-
+		$this->load->view('dashboard/Transaksi');
 		$this->load->view('templates/foot');
 	}
 }

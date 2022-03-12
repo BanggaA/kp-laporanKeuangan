@@ -14,11 +14,11 @@ class Tampilkan extends CI_Controller {
 
 	public function index()
 	{
-        $data['title'] = 'Tampilkan';
+        $data['title'] = 'Tampilkan Transaksi';
 		$data['nav'] = 'Tampilkan';
 		$this->load->view('templates/head',$data);
 		$this->load->view('templates/nav',$data);
-
+		$this->load->view('Dashboard/Tampilkan');
 		$this->load->view('templates/foot');
 	}
 }

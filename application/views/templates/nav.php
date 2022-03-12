@@ -57,9 +57,8 @@
                             Akun
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="<?= site_url('akun/profil'); ?>">Profil</a>
+                            <a class="dropdown-item" href="<?= site_url('akun/logout'); ?>">Logout</a>
                         </div>
                     </div>
                     
@@ -101,6 +100,11 @@
                             <h4 class="page-title pull-left">Rekap</h4>
                             <ul class="breadcrumbs pull-right">
                                 <li><span>Menampilkan Rekap Pemasukan & Pengeluaran</span></li>
+                            </ul>
+                        <?php elseif($nav == "profil") :?>
+                            <h4 class="page-title pull-left">profil</h4>
+                            <ul class="breadcrumbs pull-right">
+                                <li><span>Menampilkan data profil</span></li>
                             </ul>
                         <?php endif;?>
                         </div>
