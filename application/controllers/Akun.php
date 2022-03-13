@@ -158,8 +158,9 @@ class Akun extends CI_Controller {
 
     }
 
-	public function delete($id){
-		$data = $this->Basic->delete("user_id",$id, 'tb_user');
+	public function delete(){
+        $user_id            = $this->input->POST('user_id');
+        $this->Basic->delete("user_id",$user_id , 'tb_user');
 		redirect('akun');
 		
 	}

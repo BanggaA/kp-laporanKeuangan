@@ -28,3 +28,8 @@ function for_admin()
         redirect('akun/block');
     }
 }
+
+function getUserToko(){
+    $ci = get_instance();
+    return $ci->session->userdata('userToko') ;
+}

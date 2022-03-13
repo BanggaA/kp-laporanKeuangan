@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                        <button type="sumbit" class="btn btn-primary">Kirim</button>
+                                        <button type="sumbit" class="btn btn-primary">tambah</button>
                                     </div>
                                 </div>
                             </form>
@@ -108,7 +108,7 @@
                             <label for="example-text-input" class="col-form-label">No telepon</label>
                             <input class="form-control" type="number" name="no_telepon_user" value="<?=$u['no_telepon_user']?>" >
                             <label for="example-text-input" class="col-form-label">Alamat</label>
-                            <textarea class="form-control form-cos" name="alamat_user" value="<?= $u['alamat_user']?>" rows="3"></textarea>
+                            <input class="form-control" type="text" name="alamat_user" value="<?=$u['alamat_user']?>" >
                             <label class="col-form-label">user level</label>
                             <select class="form-control" name="lvl" >
                                 <option value="0" <?php if($u['lvl']==0) echo 'selected' ?> >0 - nonaktif</option>
@@ -146,7 +146,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                    <form action=" <?= base_url('akun/delete/').$u["user_id"] ?> ">
+                    <form action=" <?= base_url('akun/delete') ?> ">
+                        <input type="hidden" name="user_id" value="<?= $u['user_id']?>">
                         <button type="sumbit" class="btn btn-danger">Hapus Akun</button>
                     </form>
                 </div>
