@@ -22,18 +22,24 @@ class Basic extends CI_Model {
     return $this->db->insert($table, $data);
   }
   
-  public function update($id, $table, $data)
+  public function update($colId,$id, $table, $data)
   {
-    $this->db->where('id', $id);
+    $this->db->where($colId, $id);
     return $this->db->update($table, $data);
   }
 
-  public function delete($id, $table)
+  public function delete($colId,$id, $table)
   {
-    $this->db->where('id', $id);
+    $this->db->where($colId, $id);
     return $this->db->delete($table);
   }
 
+  public function getJoin($tb_asal,$tb_tujuan,$meet){
+    $this->db->select('*');
+    $this->db->from($tb_asal);
+    $this->db->join($tb_tujuan, $meet);
+    return $this->db->get()->result_array();
+  }
 
   
 }

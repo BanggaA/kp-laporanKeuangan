@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-2"><p>Nama</p></div>
-                        <div class="col-8"><p><?= (!$user['userToko']) ? "-" : "manger toko ".$user['userToko'];?></p></div>
+                        <div class="col-8"><p><?= $user['name'];?></p></div>
                     </div>
                     <hr>
                     <div class="row">
@@ -20,7 +20,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-2"><p>nomor telepon</p></div>
-                        <div class="col-8"><p><?= (!$user['noTelp']) ? "-" : "manger toko ".$user['noTelp'];?></p></div>
+                        <div class="col-8"><p><?= (!$user['noTelp']) ? "-" : $user['noTelp'];?></p></div>
                     </div>
                     <hr>
                     <div class="row">
@@ -40,7 +40,7 @@
 <div>
     <div class="modal fade" id="edit">
         <div class="modal-dialog modal-lg">
-            <form action="" method="post">
+            <form action="<?= base_url("akun/updateProfil")?>" method="POST">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">edit user</h5>
@@ -49,24 +49,26 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="form-row">
+                                <input type="hidden" name="user_id" value="<?= $user['userId']?>">
+
                                 <div class="col-md-4">
                                     <label for="example-text-input" class="col-form-label">Nama</label>
-                                    <input class="form-control" type="text" value="Carlos Rath" id="example-text-input">
+                                    <input class="form-control" type="text" name="name" value="<?= $user['name'] ?>">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="example-text-input" class="col-form-label">Username</label>
-                                    <input class="form-control" type="text" value="Carlos Rath" id="example-text-input">
+                                    <input class="form-control" type="text"  name="username" value="<?= $user['username'] ?>">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="example-text-input" class="col-form-label">password</label>
-                                    <input class="form-control" type="text" value="Carlos Rath" id="example-text-input">
+                                    <input class="form-control" type="text"  name="passwd" value="<?= $user['passwd'] ?>">
                                 </div>
                             </div>
                             
                             <label for="example-text-input" class="col-form-label">No telepon</label>
-                            <input class="form-control" type="text" value="Carlos Rath" id="example-text-input">
+                            <input class="form-control" type="text" name="noTelp" value="<?= $user['noTelp'] ?>">
                             <label for="example-text-input" class="col-form-label">Alamat</label>
-                            <textarea class="form-control form-cos" id="massage" name="massage" placeholder="your message here ......" rows="3"></textarea>
+                            <input class="form-control" type="text" name="alamatUser" value="<?= $user['alamatUser'] ?>">
                         </div>
                     </div>
                     <div class="modal-footer">

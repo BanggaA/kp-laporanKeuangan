@@ -13,11 +13,11 @@ class Akun extends CI_Controller {
 
 	public function index()
 	{
-		for_admin(); 
         $data['title'] = 'Akun';
 		$data['nav'] = 'Akun';
-        $data['acc'] = $this->Basic->getAll('tb_user');
-
+        //$data['user'] = $this->Basic->getAll('tb_user');
+        $data['toko'] = $this->Basic->getAll('tb_toko');
+        $data['user'] = $this->Basic->getJoin("tb_user","tb_toko","tb_user.toko = tb_toko.toko_id");
 		$this->load->view('templates/head',$data);
 		$this->load->view('templates/nav',$data);
         $this->load->view('dashboard/akun',$data);
@@ -53,7 +53,117 @@ class Akun extends CI_Controller {
             $this->set_login();
         }
 	}
+
+    public function tambah(){
+        for_admin(); 
+        
+        $username   = $this->input->POST('username');
+        $passwd     = $this->input->POST('passwd');
+        $lvl        = $this->input->POST('lvl');
+
+		$this->form_validation->set_rules('username', 'username', 'required|trim');
+        $this->form_validation->set_rules('passwd', 'passwd', 'required|trim');
+		$this->form_validation->set_rules('lvl', 'lvl', 'required|trim');
+		
+		$data = array(
+			'username' => $username,
+			'passwd' => $passwd,
+			'lvl' => $lvl,
+		);
 	
+	
+		if ($this->form_validation->run()) {
+			$this->Basic->add('tb_user', $data);
+        };
+        redirect('Akun');
+    }
+
+    public function update(){
+        for_admin(); 
+
+        $username           = $this->input->POST('username');
+        $passwd             = $this->input->POST('passwd');
+        $lvl                = $this->input->POST('lvl');
+        $user_id            = $this->input->POST('user_id');
+        $name               = $this->input->POST('name');
+        $no_telepon_user    = $this->input->POST('no_telepon_user');
+        $alamat_user        = $this->input->POST('alamat_user');
+        $toko               = $this->input->POST('toko');
+
+		$this->form_validation->set_rules('username', 'username', 'required|trim');
+        $this->form_validation->set_rules('passwd', 'passwd', 'required|trim');
+		$this->form_validation->set_rules('lvl', 'lvl', 'required|trim');
+		
+		$data =[
+            'username'          => $username,
+            'passwd'            => $passwd,
+            'lvl'               => $lvl,
+            'name'              => $name,
+            'no_telepon_user'   => $no_telepon_user,
+            'alamat_user'       => $alamat_user,
+            'toko'              => $toko
+        ];
+	
+	
+		if ($this->form_validation->run()) {
+            $this->Basic->update("user_id",$user_id,'tb_user', $data);
+        }
+        redirect('akun');    
+
+    }
+
+    public function updateProfil(){
+
+        $username           = $this->input->POST('username');
+        $passwd             = $this->input->POST('passwd');
+        $user_id            = $this->input->POST('user_id');
+        $name               = $this->input->POST('name');
+        $no_telepon_user    = $this->input->POST('noTelp');
+        $alamat_user        = $this->input->POST('alamatUser');
+
+		$this->form_validation->set_rules('username', 'username', 'required|trim');
+        $this->form_validation->set_rules('passwd', 'passwd', 'required|trim');
+		
+		$data =[
+            'username'          => $username,
+            'passwd'            => $passwd,
+            'name'              => $name,
+            'no_telepon_user'   => $no_telepon_user,
+            'alamat_user'       => $alamat_user,
+        ];
+	
+	
+		if ($this->form_validation->run()) {
+            $this->Basic->update("user_id",$user_id,'tb_user', $data);
+            $user = $this->db->get_where('tb_user', ['user_id' => $user_id]) -> row_array();
+
+            $data =['userId','username','name','passwd','noTelp','alamatUser','lvl','userToko'];
+            $this->session->unset_userdata($data);
+
+            $data =[
+                'userId' => $user['user_id'],
+				'username' => $user['username'],
+                'name' => $user['name'],
+                'passwd' => $user['passwd'],
+                'noTelp' => $user['no_telepon_user'],
+                'alamatUser' => $user['alamat_user'],
+                'lvl' => $user['lvl'],
+                'userToko' => $user['toko']
+            ];
+
+            $this->session->set_userdata($data);
+
+        }
+        redirect('akun/profil');    
+
+    }
+
+	public function delete($id){
+		$data = $this->Basic->delete("user_id",$id, 'tb_user');
+		redirect('akun');
+		
+	}
+
 	public function block()
 	{
         $data['title'] = 'block';
