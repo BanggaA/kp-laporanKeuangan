@@ -19,8 +19,8 @@ class Kategori extends CI_Controller {
 		$data['nav'] = 'Kategori';
 
         $data['kategori'] = $this->Toko_m->getkatAll(getUserToko());
-		$data['pemasukan'] = $this->Toko_m->getkat( getUserToko(),'Pemasukan');
-		$data['pengeluaran'] = $this->Toko_m->getkat( getUserToko(),'Pengeluaran');
+		$data['pemasukan'] = $this->Toko_m->getkatIn( getUserToko());
+		$data['pengeluaran'] = $this->Toko_m->getkatOut( getUserToko());
 
 		$this->load->view('templates/head',$data);
 		$this->load->view('templates/nav',$data);
