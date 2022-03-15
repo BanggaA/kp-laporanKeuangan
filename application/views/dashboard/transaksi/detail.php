@@ -9,7 +9,7 @@
                             <button type="button" class="btn btn-primary btn-xs mt-3 mb-2" data-toggle="modal" data-target="#tambah.pemasukan"><span class="ti-pencil"></span> Pemasukan</button>
                             <div class="modal fade" id="tambah.pemasukan">
                                 <div class="modal-dialog">
-                                    <form action="<?= base_url('transaksi/tambah')?>" method="POST">
+                                    <form action="<?= base_url('transaksi/tambahByTgl')?>" method="POST">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">tambah Pemasukan</h5>

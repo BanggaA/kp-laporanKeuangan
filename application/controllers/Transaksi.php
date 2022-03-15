@@ -51,6 +51,36 @@ class Transaksi extends CI_Controller {
         
         $waktu		= $this->input->POST('waktu');
         $transaksi	= $this->input->POST('transaksi');
+        $jenis		= $this->input->POST('jenis');
+        $kategori	= $this->input->POST('kategori');
+        $nominal	= $this->input->POST('nominal');		
+
+		$this->form_validation->set_rules('waktu', 'waktu', 'required|trim');
+		$this->form_validation->set_rules('transaksi', 'transaksi', 'required|trim');
+		$this->form_validation->set_rules('jenis', 'jenis', 'required|trim');
+		$this->form_validation->set_rules('kategori', 'kategori', 'required|trim');
+		$this->form_validation->set_rules('nominal', 'nominal', 'required|trim');
+		
+		$data = array(
+			'waktu' 		=> $waktu,
+			'transaksi'   	=> $transaksi,
+			'jenis'   		=> $jenis,
+			'kategori'   	=> $kategori,
+			'nominal'   	=> $nominal,
+			'toko' 			=> getUserToko()
+		);
+	
+	
+		if (($jenis == 'Pemasukan' || $jenis == 'Pengeluaran') && $this->form_validation->run())  {
+			$this->Basic->add('tb_transaksi', $data);
+        };
+		redirect($_SERVER['HTTP_REFERER'],'refresh');
+    }
+
+	public function tambahByTgl(){
+        
+        $waktu		= $this->input->POST('waktu');
+        $transaksi	= $this->input->POST('transaksi');
         $kategori	= $this->input->POST('kategori');
         $nominal	= $this->input->POST('nominal');		
 
@@ -74,7 +104,7 @@ class Transaksi extends CI_Controller {
 		if (($arr[0] == 'Pemasukan' || $arr[0] == 'Pengeluaran') && $this->form_validation->run())  {
 			$this->Basic->add('tb_transaksi', $data);
         };
-		redirect($_SERVER['HTTP_REFERER'],'refresh');
+		redirect('transaksi');
     }
 
     public function update(){
