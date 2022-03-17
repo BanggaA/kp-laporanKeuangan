@@ -103,7 +103,7 @@
                         <tbody>
                         <?php foreach ($lap as $l) : ?>
                             <tr>
-                                <td><?= date_format(date_create($l['waktu']),'d F Y') ?></td>
+                                <td><?= date_format(date_create($l['waktu']),'d m Y') ?></td>
                                 <td>Rp. <?= number_format($l['pemasukan'],0,",",".")?></td>
                                 <td>Rp. <?= number_format($l['pengeluaran'],0,",",".")?></td>
                                 <td class="<?= (($l['pemasukan']-$l['pengeluaran'])>0) ? "text-success" : "text-danger"?>">Rp. <?= number_format(($l['pemasukan']-$l['pengeluaran']),0,",",".")?></td>

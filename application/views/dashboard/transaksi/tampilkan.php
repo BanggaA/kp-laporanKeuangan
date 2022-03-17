@@ -39,7 +39,7 @@
                         <tbody>
                         <?php foreach ($lap as $l) : ?>
                             <tr>
-                                <td><?= date_format(date_create($l['waktu']),'d F Y') ?></td>
+                                <td><?= date_format(date_create($l['waktu']),'d m Y') ?></td>
                                 <td><?= $l['transaksi']?></td>
                                 <td><?= $l['kategori']?></td>
                                 <td class="<?= ($l['jenis'] == 'Pemasukan')? 'text-success':'text-danger' ?>"><?= $l['jenis']?></td>

@@ -40,6 +40,33 @@ class Toko_m extends CI_Model {
     }
     //transaksi
 
+    public function lapSum($toko,$waktu,$jenis){
+        return $this->db->select_sum('nominal')
+        ->from('tb_transaksi')
+        ->like('toko', $toko)
+        ->like('waktu', $waktu)
+        ->like('jenis', $jenis)
+        ->get()
+        ->result_array()[0]['nominal'];
+    }
+
+    public function laporan($toko,$jenis){
+		$tgl    = new DateTime(date('Y-m-d'));
+        $tgl=$tgl->modify( '-1 day' )->format("Y-m-d");
+        
+        $hari = $this->lapSum($toko,date('Y-m-d'),$jenis);
+        $kemarin = $this->lapSum($toko,$tgl,$jenis);
+        $bulan = $this->lapSum($toko,date('Y-m'),$jenis);
+        $tahun = $this->lapSum($toko,date('Y'),$jenis);
+
+        return [
+            'hari' =>  ($hari) ? $hari : '0',
+            'kemarin' => ($kemarin) ? $kemarin : '0',
+            'bulan' =>  ($bulan) ? $bulan : '0',
+            'tahun' =>  ($tahun) ? $tahun : '0'
+        ];
+        
+    }
    
 
     public function rekap ($toko,$opsi){

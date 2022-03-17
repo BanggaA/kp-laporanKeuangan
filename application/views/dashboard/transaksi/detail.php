@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between pb-3">
-                <h4 class="header-title my-3"><?= date_format(date_create($lap[0]['waktu']),'d F Y') ?></h4>
+                <h4 class="header-title my-3"><?= date_format(date_create($lap[0]['waktu']),'d m Y') ?></h4>
                     <div class="row">
                         <div class="col px-1">
                             <button type="button" class="btn btn-primary btn-xs mt-3 mb-2" data-toggle="modal" data-target="#tambah.pemasukan"><span class="ti-pencil"></span> Pemasukan</button>
