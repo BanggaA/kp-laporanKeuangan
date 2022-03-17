@@ -31,7 +31,128 @@ class Toko_m extends CI_Model {
         return $this->db->get()->result_array();
     }
     
+    public function deArr($arr, $key){
+        $result = [];
+        foreach ($arr as $a){
+            array_push($result,$a[$key]);
+        }
+        return $result;
+    }
     //transaksi
+
+   
+
+    public function rekap ($toko,$opsi){
+		$tgl    = new DateTime(date('Y-m-d'));
+        $days   = count($this->dateLap($toko));
+
+        switch ($opsi){
+            case 'a':
+                #hari ini
+                $tgl=$tgl->format("Y-m-d");
+                $result = $this->rekapLap($toko,$this->lapiter($toko,$tgl,$tgl));
+                $result += [
+                    'selisih'=>$result['pemasukan']-$result['pengeluaran'],
+                    'ratePemasukan'=> $result['pemasukan'] / 1,  
+                    'ratePengeluaran'=> $result['pengeluaran'] / 1  
+                ];
+                return $result;
+            case 'b':
+                #kemarin
+                $tgl=$tgl->modify( '-1 day' )->format("Y-m-d");
+                $result = $this->rekapLap($toko,$this->lapiter($toko,$tgl,$tgl));
+                $result += [
+                    'selisih'=>$result['pemasukan']-$result['pengeluaran'],
+                    'ratePemasukan'=> $result['pemasukan'] / 1,  
+                    'ratePengeluaran'=> $result['pengeluaran'] / 1  
+                ];
+                return $result;
+            case 'c':
+                #7 hari terakhir
+                $tgl1=$tgl->format("Y-m-d");
+                $tgl2=$tgl->modify( '-7 day' )->format("Y-m-d");
+                $result = $this->rekapLap($toko,$this->lapiter($toko,$tgl2,$tgl1));
+                $result += [
+                    'selisih'=>$result['pemasukan']-$result['pengeluaran'],
+                    'ratePemasukan'=> $result['pemasukan'] / 7,  
+                    'ratePengeluaran'=> $result['pengeluaran'] / 7 
+                ];
+                return $result;
+                
+            case 'd':
+                #bulan ini
+                $result = $this->rekapLap($toko,$this->lapToko(date('Y-m'),$toko));
+                $result += [
+                    'selisih'=>$result['pemasukan']-$result['pengeluaran'],
+                    'ratePemasukan'=> $result['pemasukan'] / intval(date('t')),  
+                    'ratePengeluaran'=> $result['pengeluaran'] / intval(date('t')) 
+                ];
+                return $result;
+            case 'e':
+                #tahun ini
+                $result = $this->rekapLap($toko,$this->lapToko(date('Y'),$toko));
+                $result += [
+                    'selisih'=>$result['pemasukan']-$result['pengeluaran'],
+                    'ratePemasukan'=> $result['pemasukan'] / 365,  
+                    'ratePengeluaran'=> $result['pengeluaran'] / 365
+                ];
+                return $result;
+            case 'f':
+                #semua
+                $result = $this->rekapLap($toko,$this->lapToko('',$toko));
+                $result += [
+                    'selisih'=>$result['pemasukan']-$result['pengeluaran'],
+                    'ratePemasukan'=> $result['pemasukan'] / $days,  
+                    'ratePengeluaran'=> $result['pengeluaran'] / $days 
+                ];
+                return $result;
+        }
+    }
+
+    public function rekapLap($toko,$laporan){
+
+        $katin = $this->deArr($this->getkatIn($toko),'kategori');
+        $katOut = $this->deArr($this->getkatOut($toko),'kategori');
+
+        $SumI=[];
+        $SumO=[];
+        $In=0;
+        $Out=0;
+
+        foreach ($laporan as $lap){
+            if(in_array($lap['kategori'],$katin)){
+                if(in_array($lap['kategori'],array_keys($SumI))){
+                    $SumI[$lap['kategori']]+= $lap['nominal'];
+                    $In++;
+                }else{
+                    $SumI+= [$lap['kategori'] => $lap['nominal']];
+                    $In++;
+                }
+            }elseif(in_array($lap['kategori'],$katOut)){
+                if(in_array($lap['kategori'],array_keys($SumO))){
+                    $SumO[$lap['kategori']]+= $lap['nominal'];
+                    $Out++;
+                }else{
+                    $SumO+= [$lap['kategori'] => $lap['nominal']];
+                    $Out++;
+                }
+            }
+        }
+        arsort($SumI);
+        arsort($SumO);
+
+        $result = [
+            'pemasukan'=>array_sum($SumI),
+            'pengeluaran'=>array_sum($SumO),
+            'katIn'=>$SumI,
+            'katOut'=>$SumO,
+            'in'=>$In,
+            'out'=>$Out
+            ];
+
+        return $result;
+        
+    }
 
     public function dateLap($toko){
         $this->db->select('waktu');
@@ -52,6 +173,26 @@ class Toko_m extends CI_Model {
         ->result_array();
         
         return $data;
+    }
+
+    public function lapiter($toko,$mulai,$akhir){
+
+        $interval = new DateInterval('P1D');
+        $begin = new DateTime( $mulai );
+        $end = new DateTime( $akhir );
+
+        $daterange = new DatePeriod($begin, $interval ,$end);
+        
+        $this->db->select('*')
+        ->from('tb_transaksi')
+        ->like('toko',$toko)
+        ->like('waktu',$akhir);
+
+        foreach($daterange as $date){
+            $this->db->or_like('waktu',$date->format("Y-m-d"));
+        }
+
+        return $this->db->get()->result_array();
     }
 
     public function groupLap($toko){

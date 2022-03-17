@@ -28,6 +28,82 @@ class Transaksi extends CI_Controller {
 		$this->load->view('templates/foot');
 	}
 
+	public function tampilkan(){
+
+        $awal		= $this->input->POST('awal');
+        $akhir		= $this->input->POST('akhir');
+		
+		$this->form_validation->set_rules('awal', 'awal', 'required|trim');
+		$this->form_validation->set_rules('akhir', 'akhir', 'required|trim');
+
+		if($this->form_validation->run()){
+			
+			$data['title'] = 'Tampilkan';
+			$data['nav'] = 'Tampilkan';
+			$data['lap'] = $this->Toko_m->lapiter(getUserToko(),$awal,$akhir);
+
+			$this->load->view('templates/head',$data);
+			$this->load->view('templates/nav',$data);
+			$this->load->view('dashboard/Transaksi/tampilkan',$data);
+			$this->load->view('templates/foot');
+
+		}else{
+			$data['title'] = 'Tampilkan';
+			$data['nav'] = 'Tampilkan';
+			$data['lap'] = [];
+
+			$this->load->view('templates/head',$data);
+			$this->load->view('templates/nav',$data);
+			$this->load->view('dashboard/Transaksi/tampilkan',$data);
+			$this->load->view('templates/foot');
+		}
+
+	}
+
+	public function rekap(){
+
+        $opsi		= $this->input->POST('opsi');
+		
+		$this->form_validation->set_rules('opsi', 'opsi', 'required|trim');
+
+		if($this->form_validation->run()){
+			
+			$data['title'] = 'Rekap';
+			$data['nav'] = 'Rekap';
+			$data['lap'] = $this->Toko_m->rekap(getUserToko(),$opsi);
+			#$data['lap'] = $this->Toko_m->getkatIn(getUserToko());
+
+			$this->load->view('templates/head',$data);
+			$this->load->view('templates/nav',$data);
+			$this->load->view('dashboard/rekap',$data);
+			$this->load->view('templates/foot');
+
+		}else{
+			$data['title'] = 'Rekap';
+			$data['nav'] = 'Rekap';
+			$data['lap'] = [
+				'selisih'=>0,
+				'ratePemasukan'=>0,  
+				'ratePengeluaran'=>0, 
+				'pemasukan'=>0,
+				'pengeluaran'=>0,
+				'katIn'=>[],
+				'katOut'=>[],
+				'in'=>0,
+				'out'=>0
+				];;
+
+			$this->load->view('templates/head',$data);
+			$this->load->view('templates/nav',$data);
+			$this->load->view('dashboard/rekap',$data);
+			$this->load->view('templates/foot');
+		}
+
+	}
+
+
+
+
 	public function detail($id){
 		
         $data['title'] = 'Transaksi';
@@ -43,8 +119,6 @@ class Transaksi extends CI_Controller {
 		$this->load->view('dashboard/Transaksi/detail',$data);
 		$this->load->view('templates/foot');
 	}
-
-
 
 
 	public function tambah(){

@@ -28,8 +28,8 @@
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i>
                                     <span>Laporan</span></a>
                                 <ul class="collapse">
-                                    <li class="<?php if ($nav == "Tampilkan") {echo "active";}?>"><a href="<?= base_url('Tampilkan'); ?>">Tampilkan Transaksi</a></li>
-                                    <li class="<?php if ($nav == "Rekap") {echo "active";}?>"><a href="<?= base_url('Rekap'); ?>">Rekap</a></li>
+                                    <li class="<?php if ($nav == "Tampilkan") {echo "active";}?>"><a href="<?= base_url('transaksi/Tampilkan'); ?>">Tampilkan Transaksi</a></li>
+                                    <li class="<?php if ($nav == "Rekap") {echo "active";}?>"><a href="<?= base_url('transaksi/Rekap'); ?>">Rekap</a></li>
                                 </ul>
                             </li>
                         </ul>
