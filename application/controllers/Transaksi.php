@@ -6,6 +6,7 @@ class Transaksi extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
+		for_manager();
 
         $this->load->helper(['url']);
         $this->load->model(['Basic','Toko_m']);
@@ -22,10 +23,10 @@ class Transaksi extends CI_Controller {
 
 		$data['lap'] = $this->Toko_m->groupLap(getUserToko());
 
-		$this->load->view('templates/head',$data);
-		$this->load->view('templates/nav',$data);
-		$this->load->view('dashboard/Transaksi/Transaksi',$data);
-		$this->load->view('templates/foot');
+		$this->load->view('general/templates/head',$data);
+		$this->load->view('general/templates/nav',$data);
+		$this->load->view('manager/Transaksi/Transaksi',$data);
+		$this->load->view('general/templates/foot');
 	}
 
 	public function tampilkan(){
@@ -42,20 +43,20 @@ class Transaksi extends CI_Controller {
 			$data['nav'] = 'Tampilkan';
 			$data['lap'] = $this->Toko_m->lapiter(getUserToko(),$awal,$akhir);
 
-			$this->load->view('templates/head',$data);
-			$this->load->view('templates/nav',$data);
-			$this->load->view('dashboard/Transaksi/tampilkan',$data);
-			$this->load->view('templates/foot');
+			$this->load->view('general/templates/head',$data);
+			$this->load->view('general/templates/nav',$data);
+			$this->load->view('manager/Transaksi/tampilkan',$data);
+			$this->load->view('general/templates/foot');
 
 		}else{
 			$data['title'] = 'Tampilkan';
 			$data['nav'] = 'Tampilkan';
 			$data['lap'] = [];
 
-			$this->load->view('templates/head',$data);
-			$this->load->view('templates/nav',$data);
-			$this->load->view('dashboard/Transaksi/tampilkan',$data);
-			$this->load->view('templates/foot');
+			$this->load->view('general/templates/head',$data);
+			$this->load->view('general/templates/nav',$data);
+			$this->load->view('manager/Transaksi/tampilkan',$data);
+			$this->load->view('general/templates/foot');
 		}
 
 	}
@@ -73,10 +74,10 @@ class Transaksi extends CI_Controller {
 			$data['lap'] = $this->Toko_m->rekap(getUserToko(),$opsi);
 			#$data['lap'] = $this->Toko_m->getkatIn(getUserToko());
 
-			$this->load->view('templates/head',$data);
-			$this->load->view('templates/nav',$data);
-			$this->load->view('dashboard/rekap',$data);
-			$this->load->view('templates/foot');
+			$this->load->view('general/templates/head',$data);
+			$this->load->view('general/templates/nav',$data);
+			$this->load->view('manager/transaksi/rekap',$data);
+			$this->load->view('general/templates/foot');
 
 		}else{
 			$data['title'] = 'Rekap';
@@ -114,10 +115,10 @@ class Transaksi extends CI_Controller {
 		$data['pengeluaran'] = $this->Toko_m->getkatOut( getUserToko());
 		$data['lap'] = $this->Toko_m->getLapById(getUserToko(),$id);
 
-		$this->load->view('templates/head',$data);
-		$this->load->view('templates/nav',$data);
-		$this->load->view('dashboard/Transaksi/detail',$data);
-		$this->load->view('templates/foot');
+		$this->load->view('general/templates/head',$data);
+		$this->load->view('general/templates/nav',$data);
+		$this->load->view('manager/Transaksi/detail',$data);
+		$this->load->view('general/templates/foot');
 	}
 
 

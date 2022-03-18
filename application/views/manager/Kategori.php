@@ -102,7 +102,7 @@
 <div>
 <?php foreach ($kategori as $kat) : ?>
         <div class="modal fade" id="edit.<?=$kat['kategori_id']?>">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
                 <form action="<?= base_url("kategori/update")?>" method="post">
                     <div class="modal-content">
                         <div class="modal-header">

@@ -6,6 +6,7 @@ class Toko extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
+        for_admin();
 
         $this->load->helper(['url']);
         $this->load->model('Basic');
@@ -19,10 +20,10 @@ class Toko extends CI_Controller {
 
         $data['toko'] = $this->Basic->getAll('tb_toko');
 
-		$this->load->view('templates/head',$data);
-		$this->load->view('templates/nav',$data);
-		$this->load->view('Toko/Toko',$data);
-		$this->load->view('templates/foot');
+		$this->load->view('general/templates/head',$data);
+		$this->load->view('general/templates/nav',$data);
+		$this->load->view('admin/Toko/Toko',$data);
+		$this->load->view('general/templates/foot');
 	}
 
     public function detail($id)
@@ -33,14 +34,13 @@ class Toko extends CI_Controller {
         $data['toko'] = $this->Basic->getAll('tb_toko');
         $data['user'] = $this->Basic->getJoin("tb_user","tb_toko","tb_user.toko = tb_toko.toko_id");
 
-		$this->load->view('templates/head',$data);
-		$this->load->view('templates/nav',$data);
-		$this->load->view('toko/TokoDetail',$data);
-		$this->load->view('templates/foot');
+		$this->load->view('general/templates/head',$data);
+		$this->load->view('general/templates/nav',$data);
+		$this->load->view('admin/toko/TokoDetail',$data);
+		$this->load->view('tgeneral/emplates/foot');
 	}
 
     public function tambah(){
-        for_admin(); 
         
         $toko       = $this->input->POST('toko');
         $alamat     = $this->input->POST('alamat');
@@ -61,7 +61,6 @@ class Toko extends CI_Controller {
     }
 
     public function update(){
-        for_admin(); 
 
         $toko_id        = $this->input->POST('toko_id');
         $toko           = $this->input->POST('toko');
@@ -84,7 +83,6 @@ class Toko extends CI_Controller {
     }
 
     public function delete(){
-        for_admin(); 
 
         $toko_id        = $this->input->POST('toko_id');
         

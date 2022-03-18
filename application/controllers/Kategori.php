@@ -6,7 +6,8 @@ class Kategori extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
-
+        for_manager();
+        
         $this->load->helper(['url']);
 		$this->load->model(['Basic','Toko_m']);
 
@@ -22,14 +23,13 @@ class Kategori extends CI_Controller {
 		$data['pemasukan'] = $this->Toko_m->getkatIn( getUserToko());
 		$data['pengeluaran'] = $this->Toko_m->getkatOut( getUserToko());
 
-		$this->load->view('templates/head',$data);
-		$this->load->view('templates/nav',$data);
-		$this->load->view('dashboard/kategori',$data);
-		$this->load->view('templates/foot');
+		$this->load->view('general/templates/head',$data);
+		$this->load->view('general/templates/nav',$data);
+		$this->load->view('manager/kategori',$data);
+		$this->load->view('general/templates/foot');
 	}
 
 	public function tambah(){
-        for_admin(); 
         
         $kategori       = $this->input->POST('kategori');
         $jenis    		= $this->input->POST('jenis');
@@ -50,7 +50,6 @@ class Kategori extends CI_Controller {
     }
 
     public function update(){
-        for_admin(); 
 
         $kategori_id  	= $this->input->POST('kategori_id');
         $kategori  		= $this->input->POST('kategori');
@@ -72,7 +71,6 @@ class Kategori extends CI_Controller {
     }
 
     public function delete(){
-        for_admin(); 
 
         $kategori_id        = $this->input->POST('kategori_id');
         

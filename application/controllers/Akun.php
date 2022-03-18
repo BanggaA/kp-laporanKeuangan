@@ -13,27 +13,30 @@ class Akun extends CI_Controller {
 
 	public function index()
 	{
+        for_admin();
+
         $data['title'] = 'Akun';
 		$data['nav'] = 'Akun';
         //$data['user'] = $this->Basic->getAll('tb_user');
         $data['toko'] = $this->Basic->getAll('tb_toko');
         $data['user'] = $this->Basic->getJoin("tb_user","tb_toko","tb_user.toko = tb_toko.toko_id");
-		$this->load->view('templates/head',$data);
-		$this->load->view('templates/nav',$data);
-        $this->load->view('dashboard/akun',$data);
-		$this->load->view('templates/foot');
+		$this->load->view('general/templates/head',$data);
+		$this->load->view('general/templates/nav',$data);
+        $this->load->view('admin/akun',$data);
+		$this->load->view('general/templates/foot');
 	}
 
 	public function profil()
 	{
 		need_usr(); 
+
         $data['title'] = 'profil';
 		$data['nav'] = 'profil';
         $data['user']=$this->session->userdata();
-		$this->load->view('templates/head',$data);
-		$this->load->view('templates/nav',$data);
-        $this->load->view('dashboard/profil',$data);
-		$this->load->view('templates/foot');
+		$this->load->view('general/templates/head',$data);
+		$this->load->view('general/templates/nav',$data);
+        $this->load->view('general/profil',$data);
+		$this->load->view('general/templates/foot');
 	}
 
 	public function login()
@@ -46,9 +49,9 @@ class Akun extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             $data['title'] = 'login';
 
-			$this->load->view('templates/head',$data);
-			$this->load->view('login');
-			$this->load->view('templates/foot');          
+			$this->load->view('general/templates/head',$data);
+			$this->load->view('general/login');
+			$this->load->view('general/templates/foot');          
         } else {
             $this->set_login();
         }
@@ -169,9 +172,9 @@ class Akun extends CI_Controller {
 	{
         $data['title'] = 'block';
 
-		$this->load->view('templates/head',$data);
-        $this->load->view('block');
-		$this->load->view('templates/foot');
+		$this->load->view('general/templates/head',$data);
+        $this->load->view('general/block');
+		$this->load->view('general/templates/foot');
 	}
 
 	private function set_login()

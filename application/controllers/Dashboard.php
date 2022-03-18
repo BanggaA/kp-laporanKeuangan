@@ -14,15 +14,29 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-        $data['title'] = 'Dashboard';
-		$data['nav'] = 'Dashboard';
-		$data['Pemasukan'] = $this->Toko_m->laporan(getUserToko(),'Pemasukan');
-		$data['Pengeluaran'] = $this->Toko_m->laporan(getUserToko(),'Pengeluaran');
-		$data['lap'] = $this->Toko_m->lapToko('',getUserToko());
+		need_usr();
 
-		$this->load->view('templates/head',$data);
-		$this->load->view('templates/nav',$data);
-		$this->load->view('dashboard/dashboard',$data);
-		$this->load->view('templates/foot');
+		if(userLvl() == 1) {
+			$data['title'] = 'Dashboard';
+			$data['nav'] = 'Dashboard';
+
+			$this->load->view('general/templates/head',$data);
+			$this->load->view('general/templates/nav',$data);
+			$this->load->view('admin/dashboard',$data);
+			$this->load->view('general/templates/foot');
+		}elseif(userLvl() == 2){
+			$data['title'] = 'Dashboard';
+			$data['nav'] = 'Dashboard';
+			$data['Pemasukan'] = $this->Toko_m->laporan(getUserToko(),'Pemasukan');
+			$data['Pengeluaran'] = $this->Toko_m->laporan(getUserToko(),'Pengeluaran');
+			$data['lap'] = $this->Toko_m->lapToko('',getUserToko());
+	
+			$this->load->view('general/templates/head',$data);
+			$this->load->view('general/templates/nav',$data);
+			$this->load->view('manager/dashboard',$data);
+			$this->load->view('general/templates/foot');
+		}else{
+			redirect('akun/block');
+		}
 	}
 }
