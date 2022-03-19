@@ -16,24 +16,41 @@
             </div>
             <div class="main-menu">
                 <div class="menu-inner">
-                    <nav>
-                        <ul class="metismenu" id="menu">
-                            <li class="<?php if ($nav == "Dashboard") {echo "active";}?>"><a href="<?= base_url('Dashboard'); ?>"><i class="ti-receipt"></i> <span>Dashboard</span></a></li>
-                            <li class="<?php if ($nav == "Transaksi") {echo "active";}?>"><a href="<?= base_url('Transaksi'); ?>"><i class="ti-receipt"></i> <span>Transaksi</span></a></li>
-                            
-                            <li class="<?php if ($nav == "Akun") {echo "active";}?>"><a href="<?= base_url('Akun'); ?>"><i class="ti-receipt"></i> <span>Akun</span></a></li>
-                            <li class="<?php if ($nav == "Kategori") {echo "active";}?>"><a href="<?= base_url('Kategori'); ?>"><i class="ti-receipt"></i> <span>Kategori</span></a></li>
-                            
-                            <li class="<?php if ($nav == "Tampilkan" || $nav == "Rekap") {echo "active";}?>">
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i>
-                                    <span>Laporan</span></a>
-                                <ul class="collapse">
-                                    <li class="<?php if ($nav == "Tampilkan") {echo "active";}?>"><a href="<?= base_url('transaksi/Tampilkan'); ?>">Tampilkan Transaksi</a></li>
-                                    <li class="<?php if ($nav == "Rekap") {echo "active";}?>"><a href="<?= base_url('transaksi/Rekap'); ?>">Rekap</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
+                    <?php if($this->session->userdata('lvl')==1):?>
+                        <nav>
+                            <ul class="metismenu" id="menu">
+                                <li class="<?php if ($nav == "Dashboard") {echo "active";}?>"><a href="<?= base_url('Dashboard'); ?>"><i class="ti-receipt"></i> <span>Dashboard</span></a></li>
+                                <li class="<?php if ($nav == "Akun") {echo "active";}?>"><a href="<?= base_url('Akun'); ?>"><i class="ti-receipt"></i> <span>Akun</span></a></li>
+                                <li class="<?php if ($nav == "toko") {echo "active";}?>"><a href="<?= base_url('toko'); ?>"><i class="ti-receipt"></i> <span>toko</span></a></li>
+                                <li class="<?php if ($nav == "Tampilkan" || $nav == "Rekap") {echo "active";}?>">
+                                    <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i>
+                                        <span>Laporan</span></a>
+                                    <ul class="collapse">
+                                        <li class="<?php if ($nav == "Tampilkan") {echo "active";}?>"><a href="<?= base_url('transaksi/Tampilkan'); ?>">Tampilkan Transaksi</a></li>
+                                        <li class="<?php if ($nav == "Rekap") {echo "active";}?>"><a href="<?= base_url('transaksi/Rekap'); ?>">Rekap</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    <?php elseif($this->session->userdata('lvl')==2):?>
+                        <nav>
+                            <ul class="metismenu" id="menu">
+                                <li class="<?php if ($nav == "Dashboard") {echo "active";}?>"><a href="<?= base_url('Dashboard'); ?>"><i class="ti-receipt"></i> <span>Dashboard</span></a></li>
+                                <li class="<?php if ($nav == "Transaksi") {echo "active";}?>"><a href="<?= base_url('Transaksi'); ?>"><i class="ti-receipt"></i> <span>Transaksi</span></a></li>
+                                
+                                <li class="<?php if ($nav == "Kategori") {echo "active";}?>"><a href="<?= base_url('Kategori'); ?>"><i class="ti-receipt"></i> <span>Kategori</span></a></li>
+                                
+                                <li class="<?php if ($nav == "Tampilkan" || $nav == "Rekap") {echo "active";}?>">
+                                    <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i>
+                                        <span>Laporan</span></a>
+                                    <ul class="collapse">
+                                        <li class="<?php if ($nav == "Tampilkan") {echo "active";}?>"><a href="<?= base_url('transaksi/Tampilkan'); ?>">Tampilkan Transaksi</a></li>
+                                        <li class="<?php if ($nav == "Rekap") {echo "active";}?>"><a href="<?= base_url('transaksi/Rekap'); ?>">Rekap</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    <?php endif;?>
                 </div>
             </div>
         </div>

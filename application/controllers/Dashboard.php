@@ -19,6 +19,10 @@ class Dashboard extends CI_Controller {
 		if(userLvl() == 1) {
 			$data['title'] = 'Dashboard';
 			$data['nav'] = 'Dashboard';
+			$data['Pemasukan'] = $this->Toko_m->laporan('','Pemasukan');
+			$data['Pengeluaran'] = $this->Toko_m->laporan('','Pengeluaran');
+
+			$data['transaksi'] = $this->Basic->getJoin("tb_transaksi","tb_toko","tb_transaksi.toko = tb_toko.toko_id");
 
 			$this->load->view('general/templates/head',$data);
 			$this->load->view('general/templates/nav',$data);

@@ -6,7 +6,6 @@ class Transaksi extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
-		for_manager();
 
         $this->load->helper(['url']);
         $this->load->model(['Basic','Toko_m']);
@@ -15,6 +14,8 @@ class Transaksi extends CI_Controller {
 
 	public function index()
 	{
+		for_manager();
+
         $data['title'] = 'Transaksi';
 		$data['nav'] = 'Transaksi';
 		
@@ -33,19 +34,25 @@ class Transaksi extends CI_Controller {
 
         $awal		= $this->input->POST('awal');
         $akhir		= $this->input->POST('akhir');
-		
+		$toko 		= getUserToko();
 		$this->form_validation->set_rules('awal', 'awal', 'required|trim');
 		$this->form_validation->set_rules('akhir', 'akhir', 'required|trim');
+
+		if(UserLvl() == 1 ){
+			$data['toko'] = $this->Toko_m->listToko();
+			$toko		= $this->input->POST('toko');
+			$this->form_validation->set_rules('toko', 'toko', 'required|trim');
+		}
 
 		if($this->form_validation->run()){
 			
 			$data['title'] = 'Tampilkan';
 			$data['nav'] = 'Tampilkan';
-			$data['lap'] = $this->Toko_m->lapiter(getUserToko(),$awal,$akhir);
+			$data['lap'] = $this->Toko_m->lapiter($toko,$awal,$akhir);
 
 			$this->load->view('general/templates/head',$data);
 			$this->load->view('general/templates/nav',$data);
-			$this->load->view('manager/Transaksi/tampilkan',$data);
+			$this->load->view('general/Transaksi/tampilkan',$data);
 			$this->load->view('general/templates/foot');
 
 		}else{
@@ -55,7 +62,7 @@ class Transaksi extends CI_Controller {
 
 			$this->load->view('general/templates/head',$data);
 			$this->load->view('general/templates/nav',$data);
-			$this->load->view('manager/Transaksi/tampilkan',$data);
+			$this->load->view('general/Transaksi/tampilkan',$data);
 			$this->load->view('general/templates/foot');
 		}
 
@@ -64,19 +71,23 @@ class Transaksi extends CI_Controller {
 	public function rekap(){
 
         $opsi		= $this->input->POST('opsi');
-		
+		$toko		= getUserToko();
 		$this->form_validation->set_rules('opsi', 'opsi', 'required|trim');
 
+		if(UserLvl() == 1 ){
+			$toko		= $this->input->POST('toko');
+			$this->form_validation->set_rules('toko', 'toko', 'required|trim');
+		}
 		if($this->form_validation->run()){
 			
 			$data['title'] = 'Rekap';
 			$data['nav'] = 'Rekap';
-			$data['lap'] = $this->Toko_m->rekap(getUserToko(),$opsi);
+			$data['lap'] = $this->Toko_m->rekap($toko,$opsi);
 			#$data['lap'] = $this->Toko_m->getkatIn(getUserToko());
 
 			$this->load->view('general/templates/head',$data);
 			$this->load->view('general/templates/nav',$data);
-			$this->load->view('manager/transaksi/rekap',$data);
+			$this->load->view('general/transaksi/rekap',$data);
 			$this->load->view('general/templates/foot');
 
 		}else{
@@ -94,10 +105,10 @@ class Transaksi extends CI_Controller {
 				'out'=>0
 				];;
 
-			$this->load->view('templates/head',$data);
-			$this->load->view('templates/nav',$data);
-			$this->load->view('dashboard/rekap',$data);
-			$this->load->view('templates/foot');
+			$this->load->view('general/templates/head',$data);
+			$this->load->view('general/templates/nav',$data);
+			$this->load->view('general/transaksi/rekap',$data);
+			$this->load->view('general/templates/foot');
 		}
 
 	}
@@ -106,6 +117,7 @@ class Transaksi extends CI_Controller {
 
 
 	public function detail($id){
+		for_manager();
 		
         $data['title'] = 'Transaksi';
 		$data['nav'] = 'Transaksi';
@@ -123,6 +135,7 @@ class Transaksi extends CI_Controller {
 
 
 	public function tambah(){
+		for_manager();
         
         $waktu		= $this->input->POST('waktu');
         $transaksi	= $this->input->POST('transaksi');
@@ -153,6 +166,7 @@ class Transaksi extends CI_Controller {
     }
 
 	public function tambahByTgl(){
+		for_manager();
         
         $waktu		= $this->input->POST('waktu');
         $transaksi	= $this->input->POST('transaksi');
@@ -183,6 +197,7 @@ class Transaksi extends CI_Controller {
     }
 
     public function update(){
+		for_manager();
 
         $transaksi_id  	= $this->input->POST('transaksi_id');
         $kategori  		= $this->input->POST('kategori');
@@ -208,6 +223,7 @@ class Transaksi extends CI_Controller {
     }
 
     public function delete(){
+		for_manager();
 
         $transaksi_id  	= $this->input->POST('transaksi_id');
         

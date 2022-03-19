@@ -39,6 +39,12 @@ class Toko_m extends CI_Model {
         return $result;
     }
     //transaksi
+    public function listToko(){
+        $this->db->select('');
+        $this->db->from('tb_toko');
+
+        return $this->db->get()->result_array();
+    }
 
     public function lapSum($toko,$waktu,$jenis){
         return $this->db->select_sum('nominal')

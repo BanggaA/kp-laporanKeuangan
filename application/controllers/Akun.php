@@ -46,7 +46,7 @@ class Akun extends CI_Controller {
 		$this->form_validation->set_rules('username', 'username', 'required|trim');
         $this->form_validation->set_rules('passwd', 'passwd', 'required|trim');
 
-        if ($this->form_validation->run() == FALSE) {
+        if (!$this->form_validation->run()) {
             $data['title'] = 'login';
 
 			$this->load->view('general/templates/head',$data);
@@ -163,8 +163,12 @@ class Akun extends CI_Controller {
 
 	public function delete(){
         $user_id            = $this->input->POST('user_id');
-        $this->Basic->delete("user_id",$user_id , 'tb_user');
-		redirect('akun');
+		$this->form_validation->set_rules('user_id', 'user_id', 'required|trim');
+
+        if ($this->form_validation->run()) {
+            $this->Basic->delete("user_id",$user_id , 'tb_user');
+        }
+        redirect('akun');
 		
 	}
 
@@ -198,19 +202,9 @@ class Akun extends CI_Controller {
             ];
             $this->session->set_userdata($data);
 
-            if($user['lvl'] == 1){
-                redirect('akun/login');
-
-            }elseif($user['lvl'] == 2){
-                redirect('akun/test');
-
-            }else{
-                redirect('akun/test');
-
-            }
-
+            redirect('dashboard');
         }else{
-            redirect('akun/test');
+            redirect('akun/login');
         }
 
     }

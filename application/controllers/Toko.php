@@ -37,7 +37,7 @@ class Toko extends CI_Controller {
 		$this->load->view('general/templates/head',$data);
 		$this->load->view('general/templates/nav',$data);
 		$this->load->view('admin/toko/TokoDetail',$data);
-		$this->load->view('tgeneral/emplates/foot');
+		$this->load->view('general/templates/foot');
 	}
 
     public function tambah(){

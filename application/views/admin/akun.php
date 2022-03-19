@@ -146,7 +146,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                    <form action=" <?= base_url('akun/delete') ?> ">
+                    <form action=" <?= base_url('akun/delete') ?> " method="POST">
                         <input type="hidden" name="user_id" value="<?= $u['user_id']?>">
                         <button type="sumbit" class="btn btn-danger">Hapus Akun</button>
                     </form>
