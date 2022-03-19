@@ -39,6 +39,16 @@ class Toko_m extends CI_Model {
         return $result;
     }
     //transaksi
+    public function getTokoId($toko_id){
+        return $this->db->get_where('tb_toko', ['toko_id' => $toko_id])->row_array();
+    }
+    public function userToko($toko_id){
+        $this->db->select('username')
+        ->distinct('')
+        ->from('tb_user')
+        ->like('toko',$toko_id);
+        return $this->db->get()->result_array();
+    }
     public function listToko(){
         $this->db->select('');
         $this->db->from('tb_toko');

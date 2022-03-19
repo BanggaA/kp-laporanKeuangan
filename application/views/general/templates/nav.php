@@ -21,7 +21,7 @@
                             <ul class="metismenu" id="menu">
                                 <li class="<?php if ($nav == "Dashboard") {echo "active";}?>"><a href="<?= base_url('Dashboard'); ?>"><i class="ti-receipt"></i> <span>Dashboard</span></a></li>
                                 <li class="<?php if ($nav == "Akun") {echo "active";}?>"><a href="<?= base_url('Akun'); ?>"><i class="ti-receipt"></i> <span>Akun</span></a></li>
-                                <li class="<?php if ($nav == "toko") {echo "active";}?>"><a href="<?= base_url('toko'); ?>"><i class="ti-receipt"></i> <span>toko</span></a></li>
+                                <li class="<?php if ($nav == "Daftar") {echo "active";} elseif ($nav == "Detail") {echo "active";} ?>"><a href="<?= base_url('toko'); ?>"><i class="ti-receipt"></i> <span>toko</span></a></li>
                                 <li class="<?php if ($nav == "Tampilkan" || $nav == "Rekap") {echo "active";}?>">
                                     <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i>
                                         <span>Laporan</span></a>
@@ -113,8 +113,18 @@
                             <ul class="breadcrumbs pull-right">
                                 <li><span>Menampilkan Daftar Transaksi Pemasukan Pengeluaran</span></li>
                             </ul>
-                        <?php elseif($nav == "Rekap") :?>
+                            <?php elseif($nav == "Rekap") :?>
                             <h4 class="page-title pull-left">Rekap</h4>
+                            <ul class="breadcrumbs pull-right">
+                                <li><span>Menampilkan Rekap Pemasukan & Pengeluaran</span></li>
+                            </ul>
+                            <?php elseif($nav == "Daftar") :?>
+                            <h4 class="page-title pull-left">Daftar toko</h4>
+                            <ul class="breadcrumbs pull-right">
+                                <li><span>Menampilkan Rekap Pemasukan & Pengeluaran</span></li>
+                            </ul>
+                            <?php elseif($nav == "Detail") :?>
+                            <h4 class="page-title pull-left">Detail toko</h4>
                             <ul class="breadcrumbs pull-right">
                                 <li><span>Menampilkan Rekap Pemasukan & Pengeluaran</span></li>
                             </ul>

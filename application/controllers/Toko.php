@@ -9,14 +9,14 @@ class Toko extends CI_Controller {
         for_admin();
 
         $this->load->helper(['url']);
-        $this->load->model('Basic');
+        $this->load->model(['Basic','Toko_m']);
     }   
 
 
 	public function index()
 	{
-        $data['title'] = 'daftar Toko';
-		$data['nav'] = 'daftar Toko';
+        $data['title'] = 'Daftar Toko';
+		$data['nav'] = 'Daftar';
 
         $data['toko'] = $this->Basic->getAll('tb_toko');
 
@@ -28,16 +28,19 @@ class Toko extends CI_Controller {
 
     public function detail($id)
 	{
-        $data['title'] = 'daftar Toko';
-		$data['nav'] = 'daftar Toko';
+        $data['title'] = 'Detail Toko';
+		$data['nav'] = 'Detail';
 
-        $data['toko'] = $this->Basic->getAll('tb_toko');
-        $data['user'] = $this->Basic->getJoin("tb_user","tb_toko","tb_user.toko = tb_toko.toko_id");
+        $data['Pemasukan'] = $this->Toko_m->laporan($id,'Pemasukan');
+        $data['Pengeluaran'] = $this->Toko_m->laporan($id,'Pengeluaran');
+        $data['lap'] = $this->Toko_m->lapToko('',$id);
+        $data['toko'] = $this->Toko_m->getTokoId($id);
+        $data['userToko'] = $this->Toko_m->userToko($id);
 
-		$this->load->view('general/templates/head',$data);
-		$this->load->view('general/templates/nav',$data);
-		$this->load->view('admin/toko/TokoDetail',$data);
-		$this->load->view('general/templates/foot');
+        $this->load->view('general/templates/head',$data);
+        $this->load->view('general/templates/nav',$data);
+        $this->load->view('admin/toko/TokoDetail',$data);
+        $this->load->view('general/templates/foot');
 	}
 
     public function tambah(){
