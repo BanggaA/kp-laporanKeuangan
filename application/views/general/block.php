@@ -9,7 +9,8 @@
                     <div class="login-form-body">
                         
                         <div class="submit-btn-area">
-                            <button id="form_submit" type="submit">kembali ke menu login<i class="ti-arrow-right"></i></button>
+                            
+                            <button id="form_submit" type="submit"><?= ($this->session->userdata('username')) ? 'kembali ke dashboard':'kembali ke menu login' ?><i class="ti-arrow-right"></i></button>
 
                         </div>
                     </div>
