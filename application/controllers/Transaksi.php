@@ -75,6 +75,7 @@ class Transaksi extends CI_Controller {
 		$this->form_validation->set_rules('opsi', 'opsi', 'required|trim');
 
 		if(UserLvl() == 1 ){
+			$data['toko'] = $this->Toko_m->listToko();
 			$toko		= $this->input->POST('toko');
 			$this->form_validation->set_rules('toko', 'toko', 'required|trim');
 		}
@@ -83,7 +84,6 @@ class Transaksi extends CI_Controller {
 			$data['title'] = 'Rekap';
 			$data['nav'] = 'Rekap';
 			$data['lap'] = $this->Toko_m->rekap($toko,$opsi);
-			#$data['lap'] = $this->Toko_m->getkatIn(getUserToko());
 
 			$this->load->view('general/templates/head',$data);
 			$this->load->view('general/templates/nav',$data);

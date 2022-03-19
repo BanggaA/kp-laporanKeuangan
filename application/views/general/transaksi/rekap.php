@@ -2,6 +2,35 @@
     <div class="row my-4">
         <div class="col-md-12">
             <div class="card">
+                
+            <?php if($this->session->userdata('lvl')==1):?>
+                <div class="card-body">
+                    <form class="d-flex justify-content-between" action="<?= base_url('transaksi/rekap')?>" method="POST">
+                        <div class="row">
+                            <div class="col">
+                                <label for="example-date-input" class="col-form-label">toko</label>
+                                <select class="form-control py-2"  name="toko">
+                                    <?php foreach( $toko as $t ):?>
+                                    <option value="<?= $t['toko_id']?>"><?= $t['toko']?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">rentang waktu</label>
+                                <select class="form-control py-2" name="opsi">
+                                    <option value="a">Hari ini</option>
+                                    <option value="b">Kemarin</option>
+                                    <option value="c">7 hari terakhir</option>
+                                    <option value="d">Bulan ini</option>
+                                    <option value="e">Tahun ini</option>
+                                    <option value="f">semua</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="sumbit" class="btn btn-primary btn-flat btn-xs my-4">Tampilkan</button>
+                    </form> 
+                </div>      
+            <?php elseif($this->session->userdata('lvl')==2):?>
                 <div class="card-body">
                     <form class="d-flex justify-content-between" action="<?= base_url('transaksi/rekap')?>" method="POST">
                         <div>
@@ -17,7 +46,8 @@
                         </div>
                         <button type="sumbit" class="btn btn-primary btn-flat btn-xs my-4">Tampilkan</button>
                     </form> 
-                </div>      
+                </div>   
+            <?php endif;?>
             </div>
         </div>
     </div>
